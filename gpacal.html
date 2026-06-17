@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- PRIMARY SEO META TAGS -->
+    <title>University GPA Calculator Sri Lanka | Online CGPA Tracker & Dashboard</title>
+    <meta name="description" content="Calculate your university Cumulative GPA (CGPA) easily. Free interactive GPA dashboard, annual credit tracker, and official academic report generator for Sri Lankan university students.">
+    <meta name="keywords" content="university gpa calculator sri lanka, cgpa calculator online, degree gpa tracker, marks to gpa converter, university of colombo gpa, jpura gpa, kelaniya gpa, academic report generator">
+    <meta name="author" content="Bizwebsrilanka">
+    <meta name="robots" content="index, follow">
+
+    <!-- OPEN GRAPH / FACEBOOK SEO -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bizwebsrilanka.tech/gpacal">
+    <meta property="og:title" content="University GPA Calculator Sri Lanka | Online CGPA Tracker">
+    <meta property="og:description" content="Calculate, track, and generate a downloadable PDF report of your university GPA instantly. Optimized for Sri Lankan higher education grading systems.">
+    <meta property="og:image" content="logo.png">
+
+    <!-- TWITTER SEO -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="University GPA Calculator Sri Lanka | Online CGPA Tracker">
+    <meta property="twitter:description" content="Free interactive GPA dashboard, annual credit tracker, and official academic report generator for university students.">
+
+    <!-- GOOGLE STRUCTURED DATA (SCHEMA MARKUP) FOR RICH SNIPPETS -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "University GPA Calculator Sri Lanka",
+      "description": "An interactive online tool to calculate, track, and generate PDF reports of university Cumulative GPA (CGPA) and annual earned credits.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires HTML5 support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0.00",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+    <style>
+        :root {
+            --primary-color: #0f766e;
+            --primary-light: #ccfbf1;
+            --secondary-color: #1e293b;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --success-color: #16a34a;
+            --danger-color: #dc2626;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--secondary-color);
+            margin: 0;
+            padding: 15px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+        
+        header h1 { color: var(--primary-color); margin: 0 0 5px 0; font-size: 26px; font-weight: 700; line-height: 1.2; }
+        header p { margin: 0; color: #64748b; font-size: 14px; }
+
+        .student-info-section {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .student-info-section label {
+            font-weight: 600;
+            color: var(--secondary-color);
+            font-size: 15px;
+        }
+        .student-info-section input {
+            width: 100%;
+            padding: 10px 12px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 6px;
+            font-size: 16px; /* Prevents auto-zoom on iOS */
+        }
+
+        .tabs {
+            display: flex;
+            gap: 5px;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 20px;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .tabs::-webkit-scrollbar { display: none; }
+
+        .tab-btn {
+            background: none; 
+            border: none; 
+            padding: 12px 16px; 
+            font-size: 15px; 
+            font-weight: 600; 
+            color: #64748b; 
+            cursor: pointer; 
+            border-bottom: 3px solid transparent;
+            flex-shrink: 0;
+            min-height: 44px;
+        }
+        .tab-btn.active { color: var(--primary-color); border-bottom-color: var(--primary-color); }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        .dashboard-grid { 
+            display: grid; 
+            grid-template-columns: 1fr; 
+            gap: 15px; 
+            margin-bottom: 25px; 
+        }
+
+        .card { background: var(--card-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; }
+        .card h3 { margin: 0 0 10px 0; font-size: 16px; color: #475569; }
+        .card .value { font-size: 30px; font-weight: 700; color: var(--primary-color); }
+
+        .table-container { 
+            background: var(--card-bg); 
+            border-radius: 12px; 
+            border: 1px solid var(--border-color); 
+            overflow-x: auto; 
+            margin-bottom: 15px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        table { width: 100%; border-collapse: collapse; min-width: 650px; }
+        th, td { padding: 12px 14px; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
+        th { background-color: #f8fafc; font-weight: 600; color: #475569; text-align: left; font-size: 14px; }
+
+        input[type="text"], input[type="number"], select {
+            width: 100%; 
+            padding: 10px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 6px; 
+            box-sizing: border-box; 
+            background-color: #fff; 
+            color: var(--secondary-color);
+            font-size: 16px; /* Prevents auto-zoom on iOS */
+        }
+
+        .btn { 
+            background-color: var(--primary-color); 
+            color: white; 
+            border: none; 
+            padding: 12px 20px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            font-size: 15px;
+            width: 100%;
+            text-align: center;
+            display: inline-block;
+        }
+        .btn-download { background-color: #2563eb; width: auto; }
+        .btn-danger { background-color: var(--danger-color); padding: 8px 12px; font-size: 13px; width: auto; }
+
+        .year-summary-box {
+            display: flex; 
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 15px; 
+            margin-bottom: 20px;
+            background: var(--primary-light); 
+            padding: 14px; 
+            border-radius: 10px; 
+            font-weight: 600; 
+            font-size: 15px;
+        }
+
+        /* SEO Rich Content Section Styling */
+        .seo-content-section {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            margin-top: 30px;
+            line-height: 1.6;
+        }
+        .seo-content-section h2 { color: var(--primary-color); font-size: 20px; margin-top: 0; }
+        .seo-content-section h3 { color: var(--secondary-color); font-size: 16px; margin-top: 15px; margin-bottom: 6px; }
+        .seo-content-section p, .seo-content-section li { color: #475569; font-size: 14px; }
+        .seo-content-section ul { padding-left: 18px; }
+
+        /* Business Card Layout Styles */
+        .support-section { margin-top: 30px; }
+        .support-title {
+            color: var(--primary-color); font-size: 16px; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .business-card {
+            background: #ffffff;
+            border: 2px solid var(--primary-color);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 0 4px 15px rgba(15, 118, 110, 0.06);
+        }
+        .card-left { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+        .logo-container {
+            width: 60px; height: 60px; background: var(--primary-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid var(--border-color);
+        }
+        .logo-container img { width: 100%; height: 100%; object-fit: cover; }
+        .business-meta h3 { margin: 0 0 4px 0; color: var(--secondary-color); font-size: 20px; font-weight: 700; }
+        .business-meta p { margin: 0; color: #64748b; font-size: 13px; }
+        
+        .card-right { display: grid; grid-template-columns: 1fr; gap: 8px; width: 100%; }
+        .card-link {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #f8fafc; border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; color: var(--secondary-color); text-decoration: none; font-weight: 600; font-size: 13.5px; transition: all 0.2s; min-height: 44px;
+        }
+        .card-link:hover { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+
+        footer { text-align: center; margin-top: 35px; padding: 15px; border-top: 1px solid var(--border-color); font-size: 14px; font-weight: 600; color: #64748b; }
+        footer .heart { color: #e11d48; display: inline-block; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+
+        /* Media Queries for Tablets and Laptops (Screens larger than 600px) */
+        @media (min-width: 600px) {
+            body { padding: 25px; }
+            header { flex-direction: row; justify-content: space-between; align-items: center; }
+            .btn { width: auto; }
+            .student-info-section { flex-direction: row; align-items: center; gap: 15px; }
+            .student-info-section input { max-width: 300px; }
+            .dashboard-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .year-summary-box { flex-direction: row; justify-content: space-between; align-items: center; padding: 16px; }
+            .business-card { flex-direction: row; justify-content: space-between; align-items: center; padding: 24px; }
+            .card-left { flex-direction: row; text-align: left; gap: 18px; }
+            .card-right { grid-template-columns: repeat(2, 1fr); gap: 10px; width: auto; }
+            .card-link { justify-content: flex-start; }
+        }
+
+        /* Print Mode Optimization */
+        @media print {
+            .hide-print, .support-section, .seo-content-section, .btn-danger { display: none !important; }
+            body { background: #fff; padding: 0; }
+            .container { max-width: 100%; }
+            .table-container { border: none; overflow: visible; }
+            table { min-width: 100%; }
+            input, select { border: none; background: transparent; appearance: none; -webkit-appearance: none; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div>
+            <h1>University GPA Calculator Sri Lanka</h1>
+            <p>Interactive Academic Performance and Cumulative GPA Tracker</p>
+        </div>
+        <button class="btn btn-download hide-print" onclick="validateAndDownload()">📥 Download PDF Report</button>
+    </header>
+
+    <div class="student-info-section">
+        <label for="student-number">Student Reg No <span style="color:red">*</span> :</label>
+        <input type="text" id="student-number" placeholder="e.g. AR/12345" required>
+    </div>
+
+    <div class="tabs hide-print">
+        <button class="tab-btn active" onclick="switchTab(event, 'summary')">Summary Dashboard</button>
+        <button class="tab-btn" onclick="switchTab(event, 'year1')">Year 1</button>
+        <button class="tab-btn" onclick="switchTab(event, 'year2')">Year 2</button>
+        <button class="tab-btn" onclick="switchTab(event, 'year3')">Year 3</button>
+        <button class="tab-btn" onclick="switchTab(event, 'year4')">Year 4</button>
+    </div>
+
+    <div id="summary" class="tab-panel active">
+        <div class="dashboard-grid">
+            <div class="card"><h3>Final Cumulative GPA (CGPA)</h3><div class="value" id="dash-final-gpa">0.0</div></div>
+            <div class="card"><h3>Total Earned Credits</h3><div class="value" id="dash-total-credits">0</div></div>
+        </div>
+        <div class="table-container">
+            <table id="summary-table">
+                <thead><tr><th>Academic Year</th><th>Annual GPA</th><th>Total Credits</th><th>Status</th></tr></thead>
+                <tbody id="summary-table-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="year1" class="tab-panel"></div>
+    <div id="year2" class="tab-panel"></div>
+    <div id="year3" class="tab-panel"></div>
+    <div id="year4" class="tab-panel"></div>
+
+    <!-- SEO KEYWORD TEXT SECTION (Helps Google Crawling & Indexing) -->
+    <article class="seo-content-section hide-print">
+        <h2>How to Calculate Your University GPA Online?</h2>
+        <p>Keeping track of your Cumulative Grade Point Average (CGPA) is highly essential for higher education and career advancements. Our free <b>University GPA Calculator Sri Lanka</b> provides an easy-to-use interactive interface tailored for state and private universities including University of Colombo, University of Sri Jayewardenepura, University of Kelaniya, and more.</p>
+        
+        <h3>Steps to Use the Online GPA Tracker:</h3>
+        <ul>
+            <li>Select your current academic academic year tab (Year 1 to Year 4).</li>
+            <li>Enter your Subject Code (The last digit will automatically determine the credit value).</li>
+            <li>Choose the correct Grade obtained from the dropdown window.</li>
+            <li>View your automated live dashboard summary and export the official layout as a clean PDF document.</li>
+        </ul>
+
+        <h3>Why Is Keeping Track of Credits Important?</h3>
+        <p>Every course module carries a designated weight known as academic credits. Your final grade points are multiplied by these values to determine the final weighted average score. This tool automates the process and eliminates standard mathematical calculation errors instantly.</p>
+    </article>
+
+    <!-- Get More Support Business Card Section -->
+    <div class="support-section hide-print">
+        <div class="support-title">Get More Support</div>
+        <div class="business-card">
+            <div class="card-left">
+                <div class="logo-container">
+                    <img src="logo.png" alt="Bizwebsrilanka Logo" onerror="this.style.display='none'; document.getElementById('alt-logo-text').style.display='block';">
+                    <div id="alt-logo-text" style="display:none; font-size:22px; font-weight:bold; color:navy;">BWS</div>
+                </div>
+                <div class="business-meta">
+                    <h3>Bizwebsrilanka</h3>
+                    <p>Premium Web Design & Development Solutions</p>
+                </div>
+            </div>
+            <div class="card-right">
+                <a href="tel:0702110527" class="card-link">📞 0702110527</a>
+                <a href="https://bizwebsrilanka.tech" target="_blank" class="card-link">🌐 bizwebsrilanka.tech</a>
+                <a href="mailto:info@bizwebsrilanka.tech" class="card-link">✉️ info@bizwebsrilanka.tech</a>
+                <a href="https://www.facebook.com/bizwebsrilanka" target="_blank" class="card-link">👤 Facebook Page</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>Distributed with <span class="heart">❤</span> by Pasindu (Sheedhar)</footer>
+</div>
+
+<script>
+    const gradeMap = {
+        "A+": { gpa: 4.0, marks: "90-100" }, "A": { gpa: 4.0, marks: "80-89" }, "A-": { gpa: 3.7, marks: "70-79" },
+        "B+": { gpa: 3.3, marks: "60-69" }, "B": { gpa: 3.0, marks: "55-59" }, "B-": { gpa: 2.7, marks: "50-54" },
+        "C+": { gpa: 2.3, marks: "45-49" }, "C": { gpa: 2.0, marks: "40-44" }, "E": { gpa: 0.0, marks: "00-24" }
+    };
+
+    let academicData = { 
+        year1: [{code:"", credits:"", grade:""}, {code:"", credits:"", grade:""}, {code:"", credits:"", grade:""}, {code:"", credits:"", grade:""}, {code:"", credits:"", grade:""}], 
+        year2: [{code:"", credits:"", grade:""}, {code:"", credits:"", grade:""}, {code:"", credits:"", grade:""}, {code:"", credits:"", grade:""}, {code:"", credits:"", grade:""}], 
+        year3: [{code:"", credits:"", grade:""}, {code:"", credits:"", grade:""}, {code:"", credits:"", grade:""}, {code:"", credits:"", grade:""}, {code:"", credits:"", grade:""}], 
+        year4: [{code:"", credits:"", grade:""}, {code:"", credits:"", grade:""}, {code:"", credits:"", grade:""}, {code:"", credits:"", grade:""}, {code:"", credits:"", grade:""}] 
+    };
+    
+    let globalFinalGpa = "0.0", globalTotalCredits = "0";
+
+    function switchTab(evt, tabId) {
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        evt.currentTarget.classList.add('active');
+    }
+
+    function handleCodeInput(yearKey, index, value) {
+        academicData[yearKey][index].code = value;
+        const cleanVal = value.trim();
+        const lastChar = cleanVal.slice(-1);
+        if (cleanVal.length > 0 && !isNaN(lastChar) && lastChar !== ' ') {
+            academicData[yearKey][index].credits = parseInt(lastChar);
+            const inputField = document.getElementById(`credit-${yearKey}-${index}`);
+            if(inputField) inputField.value = lastChar;
+        }
+        calculateAll();
+    }
+
+    function handleCreditInput(yearKey, index, value) {
+        academicData[yearKey][index].credits = parseFloat(value) || 0;
+        calculateAll();
+    }
+
+    function handleGradeInput(yearKey, index, value) {
+        academicData[yearKey][index].grade = value;
+        calculateAll();
+    }
+
+    function addRow(yearKey) {
+        academicData[yearKey].push({ code: "", credits: "", grade: "" });
+        renderYearTables();
+        calculateAll();
+    }
+
+    function removeRow(yearKey, index) {
+        academicData[yearKey].splice(index, 1);
+        renderYearTables();
+        calculateAll();
+    }
+
+    function renderYearTables() {
+        ['year1', 'year2', 'year3', 'year4'].forEach((yearKey, idx) => {
+            const container = document.getElementById(yearKey);
+            if(!container) return;
+            let html = `<h2>Year 0${idx + 1} Assessment Sheet</h2><div class="table-container"><table>
+                <thead><tr><th style="width: 60px;">No</th><th>Subject Code</th><th style="width: 100px;">Credits</th><th style="width: 120px;">Grade</th><th style="width: 120px;">Marks</th><th style="width: 80px;">GPA</th><th class="hide-print" style="width: 90px;">Action</th></tr></thead><tbody>`;
+
+            academicData[yearKey].forEach((row, index) => {
+                const info = gradeMap[row.grade] || { gpa: 0.0, marks: "-" };
+                let options = '<option value="">Select</option>';
+                for (let g in gradeMap) {
+                    options += `<option value="${g}" ${row.grade === g ? 'selected' : ''}>${g}</option>`;
+                }
+                html += `<tr>
+                    <td>${index + 1}</td>
+                    <td><input type="text" value="${row.code}" oninput="handleCodeInput('${yearKey}', ${index}, this.value)"></td>
+                    <td><input type="number" id="credit-${yearKey}-${index}" value="${row.credits || ''}" placeholder="0" oninput="handleCreditInput('${yearKey}', ${index}, this.value)"></td>
+                    <td><select onchange="handleGradeInput('${yearKey}', ${index}, this.value)">${options}</select></td>
+                    <td><span style="color: #64748b; font-size:13px;">${info.marks}</span></td>
+                    <td style="font-weight:600;">${info.gpa ? info.gpa.toFixed(1) : '0.0'}</td>
+                    <td class="hide-print"><button class="btn btn-danger" onclick="removeRow('${yearKey}', ${index})">Delete</button></td>
+                </tr>`;
+            });
+
+            html += `</tbody></table></div><button class="btn hide-print" style="margin-bottom: 15px; width:auto;" onclick="addRow('${yearKey}')">+ Add Subject</button>
+                <div class="year-summary-box">
+                    <div>Total Credits: <span id="total-cred-${yearKey}">0</span></div>
+                    <div style="color: var(--primary-color);">Annual GPA: <span id="ex-gpa-${yearKey}">0.0</span></div>
+                </div>`;
+            container.innerHTML = html;
+        });
+    }
+
+    function calculateAll() {
+        let grandTotalCredits = 0, validYearsGpaSum = 0, activeYearsCount = 0;
+        let summaryHtml = "";
+
+        ['year1', 'year2', 'year3', 'year4'].forEach((yearKey, idx) => {
+            let totalCredits = 0, weightedGpa = 0, totalCreditsEx = 0;
+            
+            academicData[yearKey].forEach(row => {
+                if(row.grade && gradeMap[row.grade]) {
+                    const credits = parseFloat(row.credits) || 0;
+                    const gpa = gradeMap[row.grade].gpa;
+                    totalCredits += credits;
+                    weightedGpa += (gpa * credits);
+                    if(gpa > 0) totalCreditsEx += credits;
+                }
+            });
+            
+            let exGpa = totalCreditsEx > 0 ? (weightedGpa / totalCreditsEx) : 0;
+            grandTotalCredits += totalCredits;
+            
+            if(document.getElementById(`total-cred-${yearKey}`)) {
+                document.getElementById(`total-cred-${yearKey}`).innerText = totalCredits;
+                document.getElementById(`ex-gpa-${yearKey}`).innerText = exGpa.toFixed(1);
+            }
+
+            if(exGpa > 0) { validYearsGpaSum += parseFloat(exGpa.toFixed(1)); activeYearsCount++; }
+            
+            summaryHtml += `<tr><td><b>Year 0${idx + 1}</b></td><td>${exGpa > 0 ? exGpa.toFixed(1) : '0.0'}</td><td>${totalCredits}</td><td><span style="font-weight:600; color:var(--success-color)">Active</span></td></tr>`;
+        });
+
+        globalFinalGpa = activeYearsCount > 0 ? (validYearsGpaSum / activeYearsCount).toFixed(1) : "0.0";
+        globalTotalCredits = grandTotalCredits.toString();
+        
+        document.getElementById('dash-final-gpa').innerText = globalFinalGpa;
+        document.getElementById('dash-total-credits').innerText = globalTotalCredits;
+        
+        summaryHtml += `<tr style="background:#f8fafc; font-weight:700;"><td>Final Cumulative GPA</td><td>${globalFinalGpa}</td><td>${globalTotalCredits}</td><td style="color:var(--primary-color);">Calculated</td></tr>`;
+        document.getElementById('summary-table-body').innerHTML = summaryHtml;
+    }
+
+    function sendCopyToAdmin() {
+        const studentNum = document.getElementById('student-number').value.trim();
+        fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                access_key: "c0f9888e-3b45-44d4-9b9b-5900c84048a3",
+                subject: `GPA Dashboard Report: ${studentNum} 🎓`,
+                "Student Number": studentNum,
+                "Final GPA": globalFinalGpa,
+                "Total Credits": globalTotalCredits,
+                "Submission Source": window.location.href
+            })
+        });
+    }
+
+    function validateAndDownload() {
+        const input = document.getElementById('student-number');
+        if(!input.value.trim()) { alert("Please enter Student Registration Number!"); input.focus(); return; }
+        sendCopyToAdmin();
+        window.print();
+    }
+
+    renderYearTables();
+    calculateAll();
+</script>
+</body>
+</html>
