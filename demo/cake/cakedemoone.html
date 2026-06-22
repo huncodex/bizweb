@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FB Mart - Premium Artisanal Cakes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --rose-primary: #C96B6B;
+  --rose-light: #FFF5F5;
+  --rose-dark: #A24A4A;
+  --gold-accent: #D4956A;
+  --bg-cream: #FDFBF9;
+  --text-dark: #3A2321;
+  --text-muted: #6E5654;
+  --white: #FFFFFF;
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(240, 224, 222, 0.6);
+  --success-whatsapp: #25D366;
+  --shadow-premium: 0 16px 40px rgba(74, 44, 42, 0.06);
+  --shadow-hover: 0 24px 48px rgba(201, 107, 107, 0.14);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg-cream); color: var(--text-dark); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+/* Scroll Margin for sections */
+#home, #cakes, #order-builder, #about, #faq { scroll-margin-top: 90px; }
+
+/* ── ANIMATION REVEALS ── */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── TOP BANNER ── */
+.top-announcement { background: linear-gradient(90deg, var(--rose-dark), var(--rose-primary), var(--gold-accent)); background-size: 200% auto; animation: waveGradient 4s linear infinite; color: var(--white); text-align: center; padding: 10px 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; position: relative; z-index: 101; }
+@keyframes waveGradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+/* ── STICKY GLASS NAVIGATION ── */
+nav { background: var(--glass-bg); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); padding: 16px 6%; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 100; transition: all 0.3s ease; }
+nav.scrolled { padding: 12px 6%; box-shadow: var(--shadow-premium); }
+.logo { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--text-dark); text-decoration: none; display: flex; align-items: center; gap: 6px; }
+.logo span { color: var(--rose-primary); }
+.nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+.nav-links a { text-decoration: none; font-size: 14px; color: var(--text-muted); font-weight: 500; transition: color 0.25s; position: relative; }
+.nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--rose-primary); transition: width 0.3s ease; }
+.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover, .nav-links a.active { color: var(--rose-primary); }
+.nav-cta { background: var(--success-whatsapp); color: var(--white); border: none; padding: 11px 22px; border-radius: 30px; font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(37,211,102,0.3); transition: all 0.3s; }
+.nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,211,102,0.45); }
+
+/* ── PREMIUM HERO SECTION ── */
+.hero { display: grid; grid-template-columns: 1.1fr 0.9fr; min-height: calc(100vh - 120px); position: relative; background: var(--white); overflow: hidden; }
+.hero-content { padding: 80px 8% 80px 12%; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 2; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--rose-light); color: var(--rose-dark); font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; padding: 8px 16px; border-radius: 30px; margin-bottom: 24px; width: fit-content; border: 1px solid rgba(201,107,107,0.15); }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: 52px; line-height: 1.15; font-weight: 700; color: var(--text-dark); margin-bottom: 20px; }
+.hero h1 em { font-style: italic; font-weight: 400; color: var(--rose-primary); }
+.hero p { font-size: 16px; color: var(--text-muted); line-height: 1.8; max-width: 480px; margin-bottom: 36px; }
+.hero-actions { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.btn-primary { background: var(--rose-primary); color: var(--white); padding: 16px 32px; border-radius: 30px; font-size: 15px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 8px 24px rgba(201, 107, 107, 0.25); transition: all 0.3s; border: 1px solid transparent; }
+.btn-primary:hover { background: var(--rose-dark); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(201, 107, 107, 0.35); }
+.btn-outline { color: var(--text-dark); font-size: 15px; font-weight: 600; background: transparent; border: 2px solid var(--glass-border); padding: 14px 28px; border-radius: 30px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.3s; }
+.btn-outline:hover { background: var(--rose-light); border-color: var(--rose-primary); color: var(--rose-dark); }
+
+.hero-visual { background: linear-gradient(135deg, #FFF0F0 0%, #FFFDFB 100%); display: flex; align-items: center; justify-content: center; position: relative; padding: 40px; }
+.hero-visual::before { content: ''; position: absolute; width: 80%; height: 80%; background: radial-gradient(circle, rgba(212,149,106,0.12) 0%, transparent 70%); pointer-events: none; }
+.main-cake-frame { width: 340px; height: 340px; background: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 30px 70px rgba(74,44,42,0.12); position: relative; z-index: 2; animation: smoothFloat 5s ease-in-out infinite; overflow: hidden; border: 6px solid var(--white); }
+.main-cake-frame img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.02); }
+@keyframes smoothFloat { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-15px) rotate(2deg); } }
+
+/* Floating Micro-Badges */
+.f-badge { position: absolute; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(8px); border-radius: 16px; padding: 12px 20px; display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 28px rgba(0,0,0,0.05); border: 1px solid var(--white); z-index: 3; }
+.f-badge-1 { top: 20%; left: 10%; animation: miniFloat 4s ease-in-out infinite alternate; }
+.f-badge-2 { bottom: 22%; right: 12%; animation: miniFloat 4.5s ease-in-out infinite alternate-reverse; }
+.f-badge-icon { width: 32px; height: 32px; background: var(--rose-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.f-badge-text h4 { font-size: 13px; font-weight: 700; color: var(--text-dark); }
+.f-badge-text p { font-size: 11px; color: var(--text-muted); margin: 0; }
+@keyframes miniFloat { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+
+/* ── TRUST STRIP ── */
+.trust-bar { background: var(--white); padding: 24px 6%; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+.trust-metric { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.trust-metric h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--rose-dark); }
+.trust-metric p { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+
+/* ── INTERACTIVE PRODUCT DISPLAY ── */
+.section-wrapper { padding: 100px 6%; max-width: 1400px; margin: 0 auto; }
+.section-header { text-align: center; max-width: 600px; margin: 0 auto 50px; }
+.section-tag { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--rose-primary); margin-bottom: 12px; display: block; }
+.section-heading { font-family: 'Playfair Display', serif; font-size: 38px; color: var(--text-dark); font-weight: 700; margin-bottom: 14px; }
+.section-desc { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+
+/* Filter Tabs Component */
+.filter-container { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; }
+.filter-btn { background: var(--white); border: 1px solid var(--glass-border); padding: 12px 24px; border-radius: 30px; font-size: 14px; font-weight: 600; color: var(--text-dark); cursor: pointer; transition: all 0.25s ease; }
+.filter-btn:hover { background: var(--rose-light); border-color: var(--rose-primary); }
+.filter-btn.active { background: var(--rose-primary); color: var(--white); border-color: var(--rose-primary); box-shadow: 0 6px 16px rgba(201, 107, 107, 0.2); }
+
+/* Grid Layout */
+.grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 30px; }
+.product-card { background: var(--white); border-radius: 24px; border: 1px solid var(--glass-border); overflow: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; position: relative; }
+.product-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); border-color: rgba(201,107,107,0.25); }
+.card-badge { position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.92); backdrop-filter: blur(4px); padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; color: var(--rose-dark); border: 1px solid rgba(201,107,107,0.15); z-index: 2; }
+
+.card-img-holder { height: 230px; overflow: hidden; background: #FFFBF9; position: relative; }
+.card-img-holder img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+.product-card:hover .card-img-holder img { transform: scale(1.06); }
+
+.card-details { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
+.card-meta { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+.card-title { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; color: var(--text-dark); }
+.card-price { font-size: 17px; font-weight: 700; color: var(--rose-dark); white-space: nowrap; }
+.card-text { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
+
+.card-btn { background: var(--rose-light); color: var(--rose-dark); border: none; border-radius: 14px; padding: 13px 16px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.25s; text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; text-decoration: none; }
+.product-card:hover .card-btn { background: var(--rose-primary); color: var(--white); box-shadow: 0 6px 16px rgba(201, 107, 107, 0.2); }
+
+/* ── VALUE PROPOSITION (WHY US) ── */
+.features-bg { background: var(--text-dark); color: var(--white); padding: 100px 6%; position: relative; }
+.features-bg .section-heading { color: var(--white); }
+.features-bg .section-desc { color: rgba(255,255,255,0.6); }
+.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1400px; margin: 50px auto 0; }
+.feature-box { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); padding: 36px 28px; border-radius: 20px; transition: all 0.3s; }
+.feature-box:hover { background: rgba(255, 255, 255, 0.07); transform: translateY(-4px); border-color: rgba(232,160,160,0.2); }
+.feature-icon-wrapper { font-size: 32px; margin-bottom: 20px; display: inline-block; }
+.feature-box h3 { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 12px; font-weight: 600; }
+.feature-box p { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.7; }
+
+/* ── INTERACTIVE DYNAMIC CAKE BUILDER ── */
+.builder-section { background: linear-gradient(180deg, var(--bg-cream), #FFF3F3); padding: 100px 6%; }
+.builder-card { background: var(--white); border-radius: 32px; border: 1px solid var(--glass-border); max-width: 960px; margin: 0 auto; box-shadow: var(--shadow-premium); display: grid; grid-template-columns: 1fr 1.1fr; overflow: hidden; }
+.builder-ui-side { padding: 40px; border-right: 1px solid var(--glass-border); display: flex; flex-direction: column; justify-content: center; }
+.builder-form-side { padding: 40px; background: #FAF6F4; }
+
+.builder-preview-circle { width: 220px; height: 220px; background: var(--rose-light); border-radius: 50%; margin: 0 auto 24px; border: 4px solid var(--white); box-shadow: 0 16px 36px rgba(0,0,0,0.06); overflow: hidden; display: flex; align-items: center; justify-content: center; transition: all 0.4s ease; }
+.builder-preview-circle img { width: 100%; height: 100%; object-fit: cover; }
+.summary-title { font-family: 'Playfair Display', serif; font-size: 22px; text-align: center; margin-bottom: 8px; font-weight: 700; }
+.summary-desc { font-size: 13px; color: var(--text-muted); text-align: center; margin-bottom: 24px; line-height: 1.5; }
+.price-display-panel { background: var(--white); border-radius: 16px; padding: 20px; text-align: center; border: 1px dashed var(--rose-primary); }
+.price-display-panel span { font-size: 12px; text-transform: uppercase; font-weight: 700; color: var(--text-muted); letter-spacing: 1px; display: block; margin-bottom: 4px; }
+.price-display-panel h2 { font-size: 32px; color: var(--rose-dark); font-weight: 800; }
+
+.form-group { margin-bottom: 20px; }
+.form-group label { font-size: 13px; font-weight: 700; color: var(--text-dark); display: block; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.form-select, .form-input { width: 100%; padding: 14px 18px; border-radius: 12px; border: 1px solid var(--glass-border); background: var(--white); font-size: 14px; color: var(--text-dark); font-weight: 500; outline: none; transition: all 0.2s; }
+.form-select:focus, .form-input:focus { border-color: var(--rose-primary); box-shadow: 0 0 0 3px rgba(201,107,107,0.15); }
+
+.weight-selector-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.weight-btn { background: var(--white); border: 1px solid var(--glass-border); padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; transition: all 0.2s; color: var(--text-dark); }
+.weight-btn:hover { background: var(--rose-light); border-color: var(--rose-primary); }
+.weight-btn.active { background: var(--rose-dark); color: var(--white); border-color: var(--rose-dark); }
+
+.submit-order-btn { background: var(--success-whatsapp); color: var(--white); border: none; width: 100%; padding: 16px; border-radius: 14px; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 6px 20px rgba(37,211,102,0.3); transition: all 0.25s; margin-top: 10px; }
+.submit-order-btn:hover { background: #20ba56; transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37,211,102,0.45); }
+
+/* ── PREMIUM TESTIMONIAL CAROUSEL SIMULATOR ── */
+.reviews-section { padding: 100px 6%; background: var(--white); }
+.reviews-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1400px; margin: 0 auto; }
+.review-node { background: var(--bg-cream); border-radius: 20px; padding: 28px; border: 1px solid var(--glass-border); transition: transform 0.3s; }
+.review-node:hover { transform: translateY(-4px); }
+.stars-row { color: #F1C40F; font-size: 15px; margin-bottom: 12px; letter-spacing: 2px; }
+.review-quote { font-size: 13px; color: var(--text-dark); font-style: italic; line-height: 1.7; margin-bottom: 20px; }
+.review-user { display: flex; align-items: center; gap: 12px; }
+.user-avatar-placeholder { width: 36px; height: 36px; background: var(--rose-primary); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+.user-meta h4 { font-size: 13px; font-weight: 700; color: var(--text-dark); }
+.user-meta p { font-size: 11px; color: var(--text-muted); }
+
+/* ── ACCORDION INTERACTIVE FAQ ── */
+.faq-section { padding: 100px 6%; background: var(--bg-cream); }
+.faq-holder { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+.faq-item { background: var(--white); border-radius: 16px; border: 1px solid var(--glass-border); overflow: hidden; transition: all 0.3s ease; }
+.faq-trigger { padding: 22px 28px; width: 100%; background: none; border: none; text-align: left; font-size: 15px; font-weight: 600; color: var(--text-dark); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.faq-trigger span:last-child { font-size: 18px; color: var(--rose-primary); transition: transform 0.3s; font-weight: 400; }
+.faq-item.open { border-color: var(--rose-primary); box-shadow: var(--shadow-premium); }
+.faq-item.open .faq-trigger span:last-child { transform: rotate(45deg); }
+.faq-content { max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1); background: #FCFAFA; }
+.faq-content p { padding: 0 28px 24px; font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+/* ── CONVERSION CLOSER CTA ── */
+.closer-cta { background: linear-gradient(135deg, #FFF0F0 0%, #FFF3EC 100%); padding: 100px 6%; text-align: center; position: relative; overflow: hidden; border-top: 1px solid var(--glass-border); }
+.closer-cta h2 { font-family: 'Playfair Display', serif; font-size: 42px; color: var(--text-dark); font-weight: 700; margin-bottom: 16px; }
+.closer-cta p { font-size: 15px; color: var(--text-muted); margin-bottom: 30px; }
+.live-signal { display: inline-flex; align-items: center; gap: 8px; background: var(--white); padding: 8px 18px; border-radius: 30px; font-size: 12px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.04); margin-bottom: 36px; border: 1px solid var(--glass-border); }
+.live-pulse-dot { width: 8px; height: 8px; background: #E74C3C; border-radius: 50%; position: relative; }
+.live-pulse-dot::after { content: ''; position: absolute; width: 100%; height: 100%; background: #E74C3C; border-radius: 50%; left: 0; top: 0; animation: pulseRing 1.5s ease-out infinite; }
+@keyframes pulseRing { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(2.4); opacity: 0; } }
+.cta-group-flex { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* ── FOOTER ── */
+footer { background: var(--text-dark); color: rgba(255,255,255,0.5); padding: 40px 6%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.06); font-size: 13px; flex-wrap: wrap; gap: 20px; }
+footer .logo { color: var(--white); }
+
+/* ── FIXED FLOATING BALLOON ── */
+.whatsapp-float-widget { position: fixed; bottom: 30px; right: 30px; width: 56px; height: 56px; background: var(--success-whatsapp); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 0 8px 24px rgba(37,211,102,0.4); text-decoration: none; z-index: 999; transition: all 0.3s; }
+.whatsapp-float-widget:hover { transform: scale(1.08) translateY(-4px); }
+
+/* ── RESPONSIVE ADAPTATIONS ── */
+@media (max-width: 1024px) {
+  .hero { grid-template-columns: 1fr; text-align: center; }
+  .hero-content { padding: 60px 6% 40px; align-items: center; }
+  .hero p { max-width: 100%; }
+  .hero-visual { padding: 40px 6% 60px; }
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .reviews-container { grid-template-columns: repeat(2, 1fr); }
+  .builder-card { grid-template-columns: 1fr; }
+  .builder-ui-side { border-right: none; border-bottom: 1px solid var(--glass-border); padding: 36px 24px; }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .trust-bar { grid-template-columns: repeat(2, 1fr); gap: 24px 12px; }
+  .hero h1 { font-size: 36px; }
+  .section-heading { font-size: 28px; }
+  .features-grid { grid-template-columns: 1fr; }
+  .reviews-container { grid-template-columns: 1fr; }
+  .closer-cta h2 { font-size: 30px; }
+  footer { flex-direction: column; text-align: center; padding: 30px 6%; }
+}
+</style>
+</head>
+<body>
+
+<div class="top-announcement">🧁 Premium Bakes Hub: Booking slots for this week are closing soon! Secure your order now.</div>
+
+<nav id="navbar">
+  <a href="#" class="logo">FB <span>Mart</span></a>
+  <ul class="nav-links">
+    <li><a href="#home" class="active">Home</a></li>
+    <li><a href="#cakes">Our Menu</a></li>
+    <li><a href="#order-builder">Custom Pricing</a></li>
+    <li><a href="#about">Our Quality</a></li>
+    <li><a href="#faq">FAQs</a></li>
+  </ul>
+  <a id="nav-whatsapp" class="nav-cta" href="#" target="_blank">💬 Chat to Order</a>
+</nav>
+
+<section id="home" class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">✨ Luxury Artisanal Bakery</div>
+    <h1>Crafting premium <em>sweet memories</em> for your family</h1>
+    <p>Every masterpiece is uniquely baked from scratch with premium standard ingredients, bringing perfection directly to your doorstep.</p>
+    <div class="hero-actions">
+      <a href="#cakes" class="btn-primary">View Best Sellers</a>
+      <a href="#order-builder" class="btn-outline">🎨 Calculate Custom Price</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="f-badge f-badge-1">
+      <div class="f-badge-icon">⭐</div>
+      <div class="f-badge-text"><h4>5-Star Taste</h4><p>Top Rated in Region</p></div>
+    </div>
+    <div class="main-cake-frame">
+      <img src="pngtree-happy-birthday-cake-transparent-background-png-image_14578946.jpg" alt="Exquisite Birthday Cake Concept" width="100%" height="100%">
+    </div>
+    <div class="f-badge f-badge-2">
+      <div class="f-badge-icon">🚚</div>
+      <div class="f-badge-text"><h4>Safe Handover</h4><p>Cold-chain Delivery</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-metric"><h3>100%</h3><p>Fresh Ingredients</p></div>
+  <div class="trust-metric"><h3>500+</h3><p>Happy Moments</p></div>
+  <div class="trust-metric"><h3>1 Hour</h3><p>Fast Reply Guarantee</p></div>
+  <div class="trust-metric"><h3>Custom</h3><p>Tailored Specifications</p></div>
+</div>
+
+<section id="cakes" class="section-wrapper">
+  <div class="section-header reveal">
+    <span class="section-tag">Curated Collections</span>
+    <h2 class="section-heading">Explore Signature Masterpieces</h2>
+    <p class="section-desc">Select from our crowd favorites. Click any item to instantly calculate dynamic sizing adjustments and finalize your WhatsApp draft.</p>
+  </div>
+
+  <div class="filter-container reveal">
+    <button class="filter-btn active" onclick="filterBakes('all', this)">All Bakes</button>
+    <button class="filter-btn" onclick="filterBakes('chocolate', this)">Signature Chocolate</button>
+    <button class="filter-btn" onclick="filterBakes('celebration', this)">Celebration Cakes</button>
+  </div>
+
+  <div class="grid-container">
+    <!-- Card 1 -->
+    <div class="product-card reveal" data-category="celebration">
+      <div class="card-badge">🔥 Hot Seller</div>
+      <div class="card-img-holder">
+        <img src="pngtree-happy-birthday-cake-transparent-background-png-image_14578946.jpg" alt="Premium Birthday Drip Cake" width="100%" height="100%">
+      </div>
+      <div class="card-details">
+        <div class="card-meta">
+          <h3 class="card-title">Premium Birthday Drip Cake</h3>
+          <span class="card-price">Rs. 3,200</span>
+        </div>
+        <p class="card-text">Multi-layered gourmet composition featuring clean piping cream sweeps, dynamic dark drips, and structured presentation candles.</p>
+        <button class="card-btn" onclick="initiatePreSelect(0)">🎨 Customize & Order</button>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="product-card reveal" data-category="celebration">
+      <div class="card-badge">✨ Luxury Edit</div>
+      <div class="card-img-holder">
+        <img src="pngtree-birthday-cake-png-image_17407517.jpg" alt="Elegant Floral Cream Cake" width="100%" height="100%">
+      </div>
+      <div class="card-details">
+        <div class="card-meta">
+          <h3 class="card-title">Elegant Floral Cream Cake</h3>
+          <span class="card-price">Rs. 4,500</span>
+        </div>
+        <p class="card-text">Perfect for milestone functions and high-end engagements. Styled neatly with handcrafted delicate buttercream flora arrays.</p>
+        <button class="card-btn" onclick="initiatePreSelect(1)">🎨 Customize & Order</button>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="product-card reveal" data-category="all">
+      <div class="card-img-holder">
+        <img src="images (2).jpg" alt="Classic White Forest Cake" width="100%" height="100%">
+      </div>
+      <div class="card-details">
+        <div class="card-meta">
+          <h3 class="card-title">Classic White Forest & Cherry</h3>
+          <span class="card-price">Rs. 2,600</span>
+        </div>
+        <p class="card-text">Rich structural traditional gateau with light whipped fresh cream, loaded chocolate ribbons, and rich premium gloss cherries.</p>
+        <button class="card-btn" onclick="initiatePreSelect(2)">🎨 Customize & Order</button>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="product-card reveal" data-category="chocolate">
+      <div class="card-badge">🍫 Chef's Pick</div>
+      <div class="card-img-holder">
+        <img src="images.jpg" alt="Signature Chocolate Fudge Cake" width="100%" height="100%">
+      </div>
+      <div class="card-details">
+        <div class="card-meta">
+          <h3 class="card-title">Signature Chocolate Fudge Cake</h3>
+          <span class="card-price">Rs. 2,800</span>
+        </div>
+        <p class="card-text">Intense cocoa luxury sponge infused with smooth ganache layers, dark chocolate curls, and elegant chocolate sprinkle finishes.</p>
+        <button class="card-btn" onclick="initiatePreSelect(3)">🎨 Customize & Order</button>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="product-card reveal" data-category="chocolate">
+      <div class="card-img-holder">
+        <img src="images (1).jpg" alt="Chocolate Cake Slice" width="100%" height="100%">
+      </div>
+      <div class="card-details">
+        <div class="card-meta">
+          <h3 class="card-title">Gourmet Fudge Slice Pack</h3>
+          <span class="card-price">Rs. 1,500</span>
+        </div>
+        <p class="card-text">Indulgent dense structural multi-layered slices featuring dense cream swirls. Perfect for individual premium daily treats.</p>
+        <button class="card-btn" onclick="initiatePreSelect(4)">🎨 Customize & Order</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="features-bg">
+  <div class="section-header reveal">
+    <span class="section-tag" style="color:#E8A0A0">Uncompromising Standards</span>
+    <h2 class="section-heading">Why Discerning Clients Choose Us</h2>
+    <p class="section-desc">We elevate baking into an artisan experience with distinct quality metrics.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-box reveal">
+      <span class="feature-icon-wrapper">🧑‍🍳</span>
+      <h3>Certified Elite Pastry Craft</h3>
+      <p>Each order undergoes stringent formulation processes under immaculate condition controls for absolute consistency.</p>
+    </div>
+    <div class="feature-box reveal">
+      <span class="feature-icon-wrapper">👑</span>
+      <h3>100% Pure Import Bases</h3>
+      <p>No industrial shortcuts. We prioritize gourmet butter blends, authentic cocoa matrices, and fresh organic fruit reductions.</p>
+    </div>
+    <div class="feature-box reveal">
+      <span class="feature-icon-wrapper">Seamless Flow Logistics</span>
+      <h3>Intact Cold Transit</h3>
+      <p>Custom protective shock-proof architectural boxes coupled with dedicated delivery personnel keeping your structure pristine.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INTERACTIVE DYNAMIC ENGINE SECTION -->
+<section id="order-builder" class="builder-section">
+  <div class="section-header reveal">
+    <span class="section-tag">Interactive Ordering</span>
+    <h2 class="section-heading">Dynamic Price Calculator Hub</h2>
+    <p class="section-desc">Configure your structural parameters instantly. Your customized configuration automatically maps out a beautifully structured real-time text block for direct checkout confirmation.</p>
+  </div>
+
+  <div class="builder-card reveal">
+    <div class="builder-ui-side">
+      <div class="builder-preview-circle" id="builder-circle-frame">
+        <img src="pngtree-happy-birthday-cake-transparent-background-png-image_14578946.jpg" alt="Active Configuration Preview" id="builder-avatar" width="100%" height="100%">
+      </div>
+      <h3 class="summary-title" id="summary-cake-title">Premium Birthday Drip Cake</h3>
+      <p class="summary-desc" id="summary-cake-desc">Gourmet layered composition featuring clean frosting sweeps, rich drops, and structured candles.</p>
+      
+      <div class="price-display-panel">
+        <span>Estimated Total Amount</span>
+        <h2 id="total-price-tag">Rs. 3,200</h2>
+      </div>
+    </div>
+
+    <div class="builder-form-side">
+      <div class="form-group">
+        <label>1. Pick Cake Archetype</label>
+        <select class="form-select" id="cake-type-selector" onchange="syncModelChange()">
+          <option value="0">Premium Birthday Drip Cake (Base: Rs. 3,200)</option>
+          <option value="1">Elegant Floral Cream Cake (Base: Rs. 4,500)</option>
+          <option value="2">Classic White Forest & Cherry (Base: Rs. 2,600)</option>
+          <option value="3">Signature Chocolate Fudge Cake (Base: Rs. 2,800)</option>
+          <option value="4">Gourmet Fudge Slice Pack (Base: Rs. 1,500)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>2. Select Size / Weight Target</label>
+        <div class="weight-selector-grid">
+          <button class="weight-btn active" data-weight="1.0" onclick="setWeightFactor(1.0, this)">1.0 Kg</button>
+          <button class="weight-btn" data-weight="1.5" onclick="setWeightFactor(1.5, this)">1.5 Kg</button>
+          <button class="weight-btn" data-weight="2.0" onclick="setWeightFactor(2.0, this)">2.0 Kg</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>3. Custom Message On Cake (Optional)</label>
+        <input type="text" class="form-input" id="cake-inscription" placeholder="e.g. Happy Birthday Amma / 25th Anniversary" oninput="calculateLivePrice()">
+      </div>
+
+      <div class="form-group">
+        <label>4. Delivery Method Option</label>
+        <select class="form-select" id="delivery-method" onchange="calculateLivePrice()">
+          <option value="pickup">Self-Collection (Free Pickup)</option>
+          <option value="delivery">Premium Courier Delivery (+ Rs. 450)</option>
+        </select>
+      </div>
+
+      <button class="submit-order-btn" onclick="dispatchWhatsAppOrder()">💬 Send Order Spec to WhatsApp</button>
+    </div>
+  </div>
+</section>
+
+<section class="reviews-section">
+  <div class="section-header reveal">
+    <span class="section-tag">Verified Patron Response</span>
+    <h2 class="section-heading">Loved By Elite Communities</h2>
+  </div>
+  <div class="reviews-container">
+    <div class="review-node reveal">
+      <div class="stars-row">★★★★★</div>
+      <p class="review-quote">"The Elegant Floral Cake exceeded our design blueprints entirely. Flavor structure was balanced, loading pure premium elements cleanly. Highly recommended for premium events!"</p>
+      <div class="review-user">
+        <div class="user-avatar-placeholder">AM</div>
+        <div class="user-meta"><h4>Ananda Perera</h4><p>Verified Client · Colombo 07</p></div>
+      </div>
+    </div>
+    <div class="review-node reveal" style="transition-delay:0.1s">
+      <div class="stars-row">★★★★★</div>
+      <p class="review-quote">"Their Interactive Price Builder made planning the corporate function extremely seamless. Pure chocolate richness without feeling overly artificial."</p>
+      <div class="review-user">
+        <div class="user-avatar-placeholder">MD</div>
+        <div class="user-meta"><h4>Minoli De Silva</h4><p>Verified Client · Kandy</p></div>
+      </div>
+    </div>
+    <div class="review-node reveal" style="transition-delay:0.2s">
+      <div class="stars-row">★★★★★</div>
+      <p class="review-quote">"Unbelievably precise and secure delivery system. The cake structures arrived in immaculate condition. Will always purchase from FB Mart."</p>
+      <div class="review-user">
+        <div class="user-avatar-placeholder">TL</div>
+        <div class="user-meta"><h4>Thilan Lakshitha</h4><p>Verified Client · Negombo</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="faq-section">
+  <div class="section-header reveal">
+    <span class="section-tag">Frequent Class Inquiries</span>
+    <h2 class="section-heading">Got Questions? We Have Answers</h2>
+  </div>
+  <div class="faq-holder">
+    <div class="faq-item reveal">
+      <button class="faq-trigger" onclick="toggleFaq(this)"><span>How early do I need to place a premium cake order?</span><span>+</span></button>
+      <div class="faq-content"><p>We request orders to be finalized at least 48 hours prior to dispatch. Complex custom multi-tiered architectural layouts require a notice period of 4-5 days to ensure proper sourcing and curation.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-trigger" onclick="toggleFaq(this)"><span>What geographic zones do your delivery fleets cover?</span><span>+</span></button>
+      <div class="faq-content"><p>We service the entire Colombo area, immediate suburbs, and strategic key regional cities via high-quality structural cold-chain courier transport to avoid any frosting decay during hot weather cycles.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-trigger" onclick="toggleFaq(this)"><span>Can you replicate explicit reference images perfectly?</span><span>+</span></button>
+      <div class="faq-content"><p>Yes, absolutely. Our custom cake artisan group can mirror target references beautifully. Simply map your concept via our Dynamic Builder and paste your baseline files directly through the custom WhatsApp line.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-trigger" onclick="toggleFaq(this)"><span>What transactional methods are supported?</span><span>+</span></button>
+      <div class="faq-content"><p>We operate seamlessly via secure digital bank transfers or partial deposit validation checks prior to initialization, alongside direct settlement choices for local walk-in pickups.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="closer-cta">
+  <h2 class="reveal">Elevate Your Next Celebration</h2>
+  <p class="reveal">Avoid generic assembly-line confectionaries. Secure a bespoke product tailored exclusively for your family.</p>
+  <div class="live-signal reveal"><div class="live-pulse-dot"></div><span id="realtime-visitor-box">14 prospective clients are analyzing this specific model menu slot</span></div>
+  <div class="cta-group-flex reveal">
+    <a id="footer-primary-wa" class="btn-primary" href="#" target="_blank">💬 Direct Consultation Hub</a>
+    <a class="btn-outline" href="https://facebook.com" target="_blank"> Visit Facebook Showroom</a>
+  </div>
+</section>
+
+<footer>
+  <a href="#" class="logo">FB <span style="color:var(--rose-primary)">Mart</span></a>
+  <div>© 2026 FB Mart Artisanal Network. All Rights Reserved. Built with Premium Standards.</div>
+</footer>
+
+<a id="fixed-balloon-widget" class="whatsapp-float-widget" href="#" target="_blank">💬</a>
+
+<script>
+const SYSTEM_WHATSAPP_PHONE = "94702110527";
+
+const DATABASE_MODELS = [
+  { name: "Premium Birthday Drip Cake", basePrice: 3200, img: "pngtree-happy-birthday-cake-transparent-background-png-image_14578946.jpg", desc: "Multi-layered gourmet composition featuring clean piping cream sweeps, dynamic dark drips, and structured presentation candles." },
+  { name: "Elegant Floral Cream Cake", basePrice: 4500, img: "pngtree-birthday-cake-png-image_17407517.jpg", desc: "Perfect for milestone functions and high-end engagements. Styled neatly with handcrafted delicate buttercream flora arrays." },
+  { name: "Classic White Forest & Cherry", basePrice: 2600, img: "images (2).jpg", desc: "Rich structural traditional gateau with light whipped fresh cream, loaded chocolate ribbons, and rich premium gloss cherries." },
+  { name: "Signature Chocolate Fudge Cake", basePrice: 2800, img: "images.jpg", desc: "Intense cocoa luxury sponge infused with smooth ganache layers, dark chocolate curls, and elegant chocolate sprinkle finishes." },
+  { name: "Gourmet Fudge Slice Pack", basePrice: 1500, img: "images (1).jpg", desc: "Indulgent dense structural multi-layered slices featuring dense cream swirls. Perfect for individual premium daily treats." }
+];
+
+let SELECTED_WEIGHT_FACTOR = 1.0;
+let CURRENT_CALCULATED_SUM = 3200;
+
+function constructUniversalLink(promptText) {
+  return "https://wa.me/" + SYSTEM_WHATSAPP_PHONE + "?text=" + encodeURIComponent(promptText);
+}
+
+// Global Static URLs Update
+const commonHookText = "Hi FB Mart! 👋 I am browsing your premium catalog and would love to consult regarding custom cake options.";
+document.getElementById("nav-whatsapp").href = constructUniversalLink(commonHookText);
+document.getElementById("footer-primary-wa").href = constructUniversalLink(commonHookText);
+document.getElementById("fixed-balloon-widget").href = constructUniversalLink(commonHookText);
+
+// Filter System Implementation
+function filterBakes(targetClass, buttonRef) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  buttonRef.classList.add('active');
+  
+  document.querySelectorAll('.product-card').forEach(card => {
+    if (targetClass === 'all') {
+      card.style.display = 'flex';
+    } else {
+      if (card.getAttribute('data-category') === targetClass) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    }
+  });
+}
+
+// Pre-Selection Logic mapped directly from product cards
+function initiatePreSelect(indexId) {
+  document.getElementById("cake-type-selector").value = indexId;
+  syncModelChange();
+  
+  // Smooth directional navigate to interactive panel
+  document.getElementById("order-builder").scrollIntoView({ behavior: 'smooth' });
+}
+
+function setWeightFactor(factor, elementRef) {
+  document.querySelectorAll('.weight-btn').forEach(btn => btn.classList.remove('active'));
+  elementRef.classList.add('active');
+  SELECTED_WEIGHT_FACTOR = factor;
+  calculateLivePrice();
+}
+
+function syncModelChange() {
+  const selectIdx = parseInt(document.getElementById("cake-type-selector").value);
+  const dataNode = DATABASE_MODELS[selectIdx];
+  
+  document.getElementById("builder-avatar").src = dataNode.img;
+  document.getElementById("summary-cake-title").textContent = dataNode.name;
+  document.getElementById("summary-cake-desc").textContent = dataNode.desc;
+  
+  calculateLivePrice();
+}
+
+function calculateLivePrice() {
+  const selectIdx = parseInt(document.getElementById("cake-type-selector").value);
+  const dataNode = DATABASE_MODELS[selectIdx];
+  
+  // Dynamic scaling computation logic
+  let compoundPrice = dataNode.basePrice * SELECTED_WEIGHT_FACTOR;
+  
+  const selectedDelivery = document.getElementById("delivery-method").value;
+  if (selectedDelivery === 'delivery') {
+    compoundPrice += 450;
+  }
+  
+  CURRENT_CALCULATED_SUM = compoundPrice;
+  document.getElementById("total-price-tag").textContent = "Rs. " + compoundPrice.toLocaleString();
+}
+
+function dispatchWhatsAppOrder() {
+  const selectIdx = parseInt(document.getElementById("cake-type-selector").value);
+  const model = DATABASE_MODELS[selectIdx];
+  const inscription = document.getElementById("cake-inscription").value.trim();
+  const deliveryType = document.getElementById("delivery-method").options[document.getElementById("delivery-method").selectedIndex].text;
+  
+  let formattedMessage = `Hello FB Mart! 🎂✨\n\nI want to place an order configuration via your online portal:\n\n`;
+  formattedMessage += `▪️ *Cake Model:* ${model.name}\n`;
+  formattedMessage += `▪️ *Target Size/Weight:* ${SELECTED_WEIGHT_FACTOR} Kg\n`;
+  formattedMessage += `▪️ *Wording Inscription:* ${inscription ? '"' + inscription + '"' : 'None Specified'}\n`;
+  formattedMessage += `▪️ *Logistics Preference:* ${deliveryType}\n`;
+  formattedMessage += `▪️ *Estimated Final Cost:* Rs. ${CURRENT_CALCULATED_SUM.toLocaleString()}\n\n`;
+  formattedMessage += `Please check structural availability for my setup and send payment validation parameters! Thanks.`;
+  
+  window.open(constructUniversalLink(formattedMessage), '_blank');
+}
+
+// Smooth Accordion FAQ Engine
+function toggleFaq(buttonElement) {
+  const item = buttonElement.parentElement;
+  const isCurrentlyOpen = item.classList.contains('open');
+  
+  document.querySelectorAll('.faq-item').forEach(el => {
+    el.classList.remove('open');
+    el.querySelector('.faq-content').style.maxHeight = null;
+  });
+  
+  if (!isCurrentlyOpen) {
+    item.classList.add('open');
+    const content = item.querySelector('.faq-content');
+    content.style.maxHeight = content.scrollHeight + "px";
+  }
+}
+
+// Scroll Animation Triggers
+const scrollRegistryObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => scrollRegistryObserver.observe(el));
+
+// Real-time visitor notifications simulation engine
+const interactivePhrases = [
+  "14 prospective clients are analyzing this specific model menu slot",
+  "Urgent: Someone from Colombo just dispatched a Chocolate Fudge configuration! 🍫",
+  "9 premium celebration orders are ahead in queue slots currently",
+  "Notice: Booking slots for incoming weekend drop-offs are at 85% capacity!",
+  "Just now: Someone customized an Elegant Floral Cake structure via WhatsApp 🌸"
+];
+let tickerIndex = 0;
+setInterval(() => {
+  tickerIndex = (tickerIndex + 1) % interactivePhrases.length;
+  const targetBox = document.getElementById("realtime-visitor-box");
+  targetBox.style.opacity = '0';
+  setTimeout(() => {
+    targetBox.textContent = interactivePhrases[tickerIndex];
+    targetBox.style.opacity = '1';
+    targetBox.style.transition = 'opacity 0.4s ease';
+  }, 400);
+}, 5000);
+
+// Simple baseline sync execution on initial launch
+calculateLivePrice();
+</script>
+</body>
+</html>

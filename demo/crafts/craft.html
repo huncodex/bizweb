@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Knots & Dreams - Handcrafted Art</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg-color: #F4F1EB;      /* Warm off-white/canvas */
+  --text-dark: #2A2623;     /* Deep brown/black */
+  --text-light: #6E6359;    /* Earthy grey */
+  --accent-clay: #B65D46;   /* Terracotta / Clay */
+  --accent-green: #5B6B56;  /* Olive/Sage Green */
+  --accent-wood: #8B7355;   /* Wood/Taupe */
+  --white: #FFFFFF;
+  --border: #D8D0C5;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Raleway', sans-serif; }
+body { background-color: var(--bg-color); color: var(--text-dark); background-image: radial-gradient(#d8d0c5 1px, transparent 1px); background-size: 40px 40px; }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--accent-wood); }
+
+h1, h2, h3, h4, .serif { font-family: 'Playfair Display', serif; }
+
+/* Navigation - Minimalist */
+nav { padding: 30px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: rgba(244, 241, 235, 0.9); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(5px); }
+.brand { font-size: 28px; font-weight: 600; color: var(--text-dark); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+.brand span { color: var(--accent-clay); font-style: italic; }
+.cart-btn { background: none; border: 1px solid var(--text-dark); padding: 8px 16px; font-size: 14px; cursor: pointer; transition: 0.3s; color: var(--text-dark); }
+.cart-btn:hover { background: var(--text-dark); color: var(--bg-color); }
+
+/* Hero Section - Editorial Look */
+.hero { padding: 80px 50px; display: flex; align-items: center; justify-content: space-between; gap: 50px; max-width: 1400px; margin: 0 auto; }
+.hero-text { flex: 1; }
+.hero-text h1 { font-size: 64px; line-height: 1.1; margin-bottom: 20px; color: var(--accent-green); }
+.hero-text p { font-size: 18px; color: var(--text-light); line-height: 1.6; max-width: 400px; margin-bottom: 40px; }
+.btn-shop { background: var(--accent-clay); color: var(--white); padding: 15px 30px; text-decoration: none; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; font-size: 12px; transition: 0.3s; display: inline-block; border: 1px solid var(--accent-clay); }
+.btn-shop:hover { background: transparent; color: var(--accent-clay); }
+.hero-image { flex: 1; position: relative; }
+.hero-image img { width: 80%; height: auto; border: 12px solid var(--white); box-shadow: 10px 10px 0px var(--accent-wood); transform: rotate(3deg); transition: 0.5s; }
+.hero-image img:hover { transform: rotate(0deg); }
+
+/* Masonry Gallery */
+.gallery-section { padding: 80px 50px; max-width: 1400px; margin: 0 auto; }
+.section-title { text-align: center; font-size: 42px; margin-bottom: 50px; color: var(--text-dark); }
+.masonry-grid { column-count: 3; column-gap: 30px; }
+.art-piece { break-inside: avoid; background: var(--white); padding: 15px; margin-bottom: 30px; border: 1px solid var(--border); transition: 0.4s; position: relative; }
+.art-piece:hover { box-shadow: 0 15px 30px rgba(0,0,0,0.05); transform: translateY(-5px); border-color: var(--accent-clay); }
+.art-piece img { width: 100%; display: block; border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 15px; }
+.art-info { text-align: center; }
+.art-title { font-size: 20px; margin-bottom: 5px; }
+.art-price { color: var(--accent-green); font-weight: 600; margin-bottom: 15px; }
+.art-buy { background: transparent; border: 1px solid var(--accent-green); color: var(--accent-green); width: 100%; padding: 10px; cursor: pointer; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+.art-buy:hover { background: var(--accent-green); color: var(--white); }
+
+/* The Studio Customizer (Completely Redesigned) */
+.studio-section { background: var(--text-dark); color: var(--bg-color); padding: 100px 50px; }
+.studio-container { max-width: 1000px; margin: 0 auto; }
+.studio-header { text-align: center; margin-bottom: 50px; }
+.studio-header h2 { color: var(--bg-color); font-size: 42px; margin-bottom: 10px; }
+
+.stepper-nav { display: flex; justify-content: center; gap: 40px; margin-bottom: 50px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+.step-btn { background: none; border: none; color: var(--text-light); font-size: 18px; cursor: pointer; font-family: 'Playfair Display', serif; transition: 0.3s; }
+.step-btn.active { color: var(--accent-clay); border-bottom: 2px solid var(--accent-clay); padding-bottom: 5px; }
+
+.builder-stage { display: none; animation: fade 0.5s; }
+.builder-stage.active { display: block; }
+@keyframes fade { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+
+/* Swatch Cards */
+.swatch-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+.swatch-label { cursor: pointer; }
+.swatch-label input { display: none; }
+.swatch-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 20px; width: 250px; text-align: center; transition: 0.3s; }
+.swatch-label input:checked + .swatch-card { border-color: var(--accent-clay); background: rgba(182, 93, 70, 0.1); }
+.swatch-icon { height: 80px; width: 80px; margin: 0 auto 15px; border-radius: 50%; border: 2px dashed rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--accent-clay); }
+.swatch-card h4 { font-size: 18px; margin-bottom: 8px; color: var(--bg-color); }
+.swatch-card p { font-size: 12px; color: #aaa; }
+
+/* Studio Summary Bottom Bar */
+.studio-summary { margin-top: 60px; background: rgba(255,255,255,0.05); padding: 30px; border-left: 4px solid var(--accent-green); display: flex; justify-content: space-between; align-items: center; }
+.summary-text h3 { font-size: 24px; margin-bottom: 5px; }
+.summary-text p { font-size: 14px; color: #aaa; }
+.btn-order-custom { background: var(--accent-green); color: var(--white); border: none; padding: 15px 40px; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
+.btn-order-custom:hover { background: #4a5746; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero { flex-direction: column; text-align: center; }
+  .hero-text p { margin: 0 auto 30px; }
+  .masonry-grid { column-count: 2; }
+  .studio-summary { flex-direction: column; text-align: center; gap: 20px; }
+}
+@media (max-width: 600px) { .masonry-grid { column-count: 1; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="brand">KNOTS <span>&</span> DREAMS</a>
+  <button class="cart-btn" onclick="alert('Cart functionality to be connected!')">Cart (0)</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <h1>Woven with<br>Intention.</h1>
+    <p>Discover soulful, hand-knotted macrame and dreamcatchers designed to bring warmth, texture, and bohemian elegance to your sacred spaces.</p>
+    <a href="#gallery" class="btn-shop">Explore Collection</a>
+  </div>
+  <div class="hero-image">
+    <!-- Using the aesthetic white tree of life image -->
+    <img src="1.jpg" alt="Featured Macrame Art">
+  </div>
+</section>
+
+<section id="gallery" class="gallery-section">
+  <h2 class="section-title">The Artisan Gallery</h2>
+  
+  <div class="masonry-grid" id="masonry-gallery">
+    <!-- Items generated via JS -->
+  </div>
+</section>
+
+<section class="studio-section" id="studio">
+  <div class="studio-container">
+    <div class="studio-header">
+      <h2>The Maker's Studio</h2>
+      <p style="color:#aaa;">Commission a bespoke piece tailored to your vision.</p>
+    </div>
+
+    <div class="stepper-nav">
+      <button class="step-btn active" onclick="setStep(1)" id="tab-1">1. Canvas Shape</button>
+      <button class="step-btn" onclick="setStep(2)" id="tab-2">2. Dimensions</button>
+      <button class="step-btn" onclick="setStep(3)" id="tab-3">3. Textures</button>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="builder-stage active" id="stage-1">
+      <div class="swatch-grid">
+        <label class="swatch-label">
+          <input type="radio" name="b_shape" value="Tree of Life" data-price="3500" checked onchange="updateStudio()">
+          <div class="swatch-card">
+            <div class="swatch-icon">🌿</div>
+            <h4>Tree of Life</h4>
+            <p>Intricate roots and branches</p>
+          </div>
+        </label>
+        <label class="swatch-label">
+          <input type="radio" name="b_shape" value="Sacred Geometry" data-price="2800" onchange="updateStudio()">
+          <div class="swatch-card">
+            <div class="swatch-icon">🕸️</div>
+            <h4>Sacred Geometry</h4>
+            <p>Traditional dreamcatcher web</p>
+          </div>
+        </label>
+        <label class="swatch-label">
+          <input type="radio" name="b_shape" value="Fringe Tapestry" data-price="4000" onchange="updateStudio()">
+          <div class="swatch-card">
+            <div class="swatch-icon">🧶</div>
+            <h4>Fringe Tapestry</h4>
+            <p>Flowing bohemian tassels</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="builder-stage" id="stage-2">
+      <div class="swatch-grid">
+        <label class="swatch-label">
+          <input type="radio" name="b_size" value="Intimate (10 inch)" data-mult="1" checked onchange="updateStudio()">
+          <div class="swatch-card">
+            <div class="swatch-icon" style="height:50px;width:50px;">◯</div>
+            <h4>Intimate</h4>
+            <p>10" Hoop - Perfect for small nooks</p>
+          </div>
+        </label>
+        <label class="swatch-label">
+          <input type="radio" name="b_size" value="Standard (16 inch)" data-mult="1.5" onchange="updateStudio()">
+          <div class="swatch-card">
+            <div class="swatch-icon" style="height:70px;width:70px;">◯</div>
+            <h4>Standard</h4>
+            <p>16" Hoop - Classic wall accent</p>
+          </div>
+        </label>
+        <label class="swatch-label">
+          <input type="radio" name="b_size" value="Statement (24 inch)" data-mult="2.2" onchange="updateStudio()">
+          <div class="swatch-card">
+            <div class="swatch-icon" style="height:90px;width:90px;">◯</div>
+            <h4>Statement</h4>
+            <p>24" Hoop - Bold centerpiece</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="builder-stage" id="stage-3">
+      <div class="swatch-grid">
+        <label class="swatch-label">
+          <input type="checkbox" id="b_dye" value="Earthy Dyes" data-add="800" onchange="updateStudio()">
+          <div class="swatch-card">
+            <div class="swatch-icon" style="background:var(--accent-clay); border:none;"></div>
+            <h4>Botanical Dyes</h4>
+            <p>Add earthy tones (Rs. 800)</p>
+          </div>
+        </label>
+        <label class="swatch-label">
+          <input type="checkbox" id="b_beads" value="Raw Wood Beads" data-add="500" onchange="updateStudio()">
+          <div class="swatch-card">
+            <div class="swatch-icon" style="background:var(--accent-wood); border:none; border-radius:5px;"></div>
+            <h4>Raw Wood Beads</h4>
+            <p>Earthy embellishments (Rs. 500)</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="studio-summary">
+      <div class="summary-text">
+        <h3 class="serif" id="studio-total">Estimated Investment: Rs. 3500</h3>
+        <p id="studio-desc">Tree of Life • Intimate (10 inch) • Pure Cotton</p>
+      </div>
+      <button class="btn-order-custom" onclick="submitCommission()">Request Commission via WhatsApp</button>
+    </div>
+
+  </div>
+</section>
+
+<script>
+// Inventory Data
+const ART_PIECES = [
+  { name: "The Alabaster Roots", img: "1.jpg", price: "Rs. 4,500" },
+  { name: "Midnight Rainbow", img: "2.jpg", price: "Rs. 5,500" },
+  { name: "Mustard & Cream Duality", img: "3.jpg", price: "Rs. 4,800" },
+  { name: "Sage Serenity", img: "4.jpg", price: "Rs. 4,500" },
+  { name: "Festive Bloom", img: "5.jpg", price: "Rs. 3,000" },
+  { name: "The Visionary Eye", img: "6.jpg", price: "Rs. 5,000" },
+  { name: "Classic Ivory Web", img: "7.jpg", price: "Rs. 3,500" }
+];
+
+// Load Masonry Gallery
+window.onload = () => {
+  const gallery = document.getElementById('masonry-gallery');
+  ART_PIECES.forEach(art => {
+    gallery.innerHTML += `
+      <div class="art-piece">
+        <img src="${art.img}" alt="${art.name}">
+        <div class="art-info">
+          <h3 class="art-title serif">${art.name}</h3>
+          <p class="art-price">${art.price}</p>
+          <button class="art-buy" onclick="alert('Added to Cart!')">Acquire Piece</button>
+        </div>
+      </div>
+    `;
+  });
+  updateStudio();
+};
+
+// Studio Builder Logic
+function setStep(stepNum) {
+  document.querySelectorAll('.step-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.builder-stage').forEach(s => s.classList.remove('active'));
+  
+  document.getElementById('tab-' + stepNum).classList.add('active');
+  document.getElementById('stage-' + stepNum).classList.add('active');
+}
+
+function updateStudio() {
+  const shape = document.querySelector('input[name="b_shape"]:checked');
+  const size = document.querySelector('input[name="b_size"]:checked');
+  const dye = document.getElementById('b_dye');
+  const beads = document.getElementById('b_beads');
+
+  let total = parseInt(shape.dataset.price) * parseFloat(size.dataset.mult);
+  let extras = [];
+  
+  if(dye.checked) { total += parseInt(dye.dataset.add); extras.push(dye.value); }
+  if(beads.checked) { total += parseInt(beads.dataset.add); extras.push(beads.value); }
+
+  let desc = `${shape.value} • ${size.value}`;
+  if(extras.length > 0) desc += ` • ${extras.join(" & ")}`;
+  else desc += ` • Pure Natural Cotton`;
+
+  document.getElementById('studio-total').innerText = `Estimated Investment: Rs. ${total}`;
+  document.getElementById('studio-desc').innerText = desc;
+}
+
+function submitCommission() {
+  const desc = document.getElementById('studio-desc').innerText;
+  const total = document.getElementById('studio-total').innerText;
+  const msg = `🌿 *NEW STUDIO COMMISSION* 🌿\n\nI would like to request a custom piece with the following details:\n\n*Details:* ${desc}\n*${total}*\n\nPlease let me know your availability!`;
+  
+  // Replace with actual seller WhatsApp number
+  window.open(`https://wa.me/94700000000?text=${encodeURIComponent(msg)}`);
+}
+</script>
+</body>
+</html>
